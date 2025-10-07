@@ -1,6 +1,10 @@
-import { Ball } from "./Ball.js";
+import { Ball } from "./Elements/Ball.js";
+import { Triangle } from "./Elements/Triangle.js";
+import { Switcher } from "./Elements/Switcher.js";
 
 let ball = null;
+let triangle = null;
+let switcher = null;
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 let gameState = "menu";
@@ -38,9 +42,27 @@ function drawPlay() {
     }
 
     if (!ball) {
-        ball = new Ball(canvas.width / 2, 790, 10, 10);
+        ball = new Ball(canvas.width / 2, 790, 10, 3);
     }
 
+    if (!triangle) {
+        triangle = new Triangle(canvas.width / 2, canvas.height - 700, 120);
+    }
+
+    if (!switcher) {
+        switcher = new Switcher(canvas.width / 2, canvas.height - 400, 15)
+    }
+
+    switcher.draw(ctx);
+
+    distanza = ball.y - switcher.y;
+    if (distanza <= 0) {
+        ball.changeColor(switcher.nextColor(ball.color));
+        console.log("ddfdfsdfsdfsfsdfsd");
+    }
+
+    triangle.update();
+    triangle.draw(ctx);
     ball.update(canvas);
     ball.draw(ctx);
 }
@@ -75,6 +97,10 @@ function selezionaSchermata() {
 function resizeCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+
+    if (ball) {
+        ball.centra(canvas);
+    }
 }
 
 window.addEventListener('resize', resizeCanvas);

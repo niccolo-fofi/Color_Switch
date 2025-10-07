@@ -5,7 +5,7 @@ export class Ball {
         this.raggio = raggio;
         this.velocitaY = 0;
         this.velocitaSalto = velocitaSalto;
-        this.gravita = 0.4;
+        this.gravita = 0.1;
         this.attiva = false;
     }
 
@@ -32,4 +32,14 @@ export class Ball {
         ctx.arc(this.x, this.y, this.raggio, 0, Math.PI * 2);
         ctx.fill();
     }
+
+    centra(canvas) {
+        this.y = window.innerHeight / 2;
+        this.x = window.innerWidth / 2;
+    }
+
+    changeColor(newColor) {
+        this.color = newColor;
+    }
+
 }
